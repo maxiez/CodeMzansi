@@ -3,63 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact CodeMzansi | Johannesburg Non-Profit Tech Training</title>
+    <meta name="description" content="Contact CodeMzansi in Johannesburg. Send us a message, find our locations on the map or email maxcatgr11@gmail.com.">
+    <meta name="keywords" content="contact CodeMzansi, Johannesburg non-profit, CodeMzansi map, partner with us, volunteer, donate">
+    <meta name="author" content="CodeMzansi">
     <link rel="stylesheet" href="css_assets/mystyle.css">
-    <title>CodeMzansi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
-
 <body>
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.html">Index</a></li>
-                <li><a href="about.html">About us</a></li>
+
+<header>
+    <nav>
+        <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="enquires.html">Enquires</a></li>
-                <li><a href="contacts.html">Contact us</a></li>
-            </ul>
-        </nav>
-    </header>
+                <li><a href="enquires.html">Enquiries</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contacts.html" class="active">Contact us</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <main>
-        <h1>Contact us</h1>
+<main>
+    <h1>Contact us</h1>
+    <p>Do you have any questions, or do you want to become a partner or volunteer? We would love to hear from you.</p>
 
-        <h2>For Enquires:</h2>
-        <h3>Do you have any questions, or do you want to become a partner, or do you want to volunteer to help us? We'd love to receive feedback and interact with you.</h3>
+    <h2>Send us a message</h2>
+    <form id="contactForm" action="mailto:maxcatgr11@gmail.com" method="post" enctype="text/plain" novalidate>
+        <label for="fullName">Full name *</label>
+        <input type="text" id="fullName" name="fullName" required>
+        <span class="error" id="nameError"></span>
 
-        <h4>Send us a message here:</h4>
-        <form action="#" method="post">
-            <p>
-                <label for="fname">Enter your first name:</label><br>
-                <input type="text" id="fname" name="fname" required>
-            </p>
-            <p>
-                <label for="lname">Enter your last name:</label><br>
-                <input type="text" id="lname" name="lname" required>
-            </p>
-            <p>
-                <label for="email">Enter your email address:</label><br>
-                <input type="email" id="email" name="email" required>
-            </p>
-            <p>
-                <label for="role">Who are you enquiring as:</label><br>
-                <select id="role" name="role">
-                    <option value="individual">Individual</option>
-                    <option value="volunteer">Volunteer</option>
-                    <option value="partner">Potential partner</option>
-                    <option value="donor">Donor</option>
-                    <option value="other">Other</option>
-                </select>
-            </p>
-            <p>
-                <label for="message">Your message:</label><br>
-                <textarea id="message" name="message" rows="5"></textarea>
-            </p>
-            <button type="submit">Send message</button>
-        </form>
+        <label for="email">Email address *</label>
+        <input type="email" id="email" name="email" required>
+        <span class="error" id="emailError"></span>
 
-        <p>You can also email us at <a href="mailto:maxcatgr11@gmail.com">maxcatgr11@gmail.com</a> or call us on 078 827 6619.</p>
+        <label for="phone">Phone number * (for example 078 827 6619)</label>
+        <input type="tel" id="phone" name="phone" required>
+        <span class="error" id="phoneError"></span>
 
-        <img src="https://www.bing.com/th/id/OGC.ebe285b8f5e6d6036243a92fdcb8a1e8?r=0&o=7&pid=1.7&rm=3&rurl=https%3a%2f%2fmedia.tenor.com%2fsp8xx-ZO4kcAAAAC%2fgoodbye-farewell.gif&ehk=srvnHeG%2bBJ6afI1reO4IZnPws%2bqdTzG%2fWebI2WJtYzE%3d" alt="Farewell goodbye animation" class="centered-image">
-    </main>
+        <label for="messageType">Type of message *</label>
+        <select id="messageType" name="messageType" required>
+            <option value="">Choose one...</option>
+            <option>General question</option>
+            <option>Feedback</option>
+            <option>Partnership</option>
+            <option>Volunteering</option>
+            <option>Donation</option>
+        </select>
+        <span class="error" id="typeError"></span>
+
+        <label for="message">Your message * (20 to 1000 characters)</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+        <span class="error" id="messageError"></span>
+
+        <button type="submit">Create my email</button>
+    </form>
+
+    <div id="emailBox" class="response">
+        <h2>Your email is ready</h2>
+        <p><b>To:</b> maxcatgr11@gmail.com</p>
+        <p><b>Subject:</b> <span id="emailSubject"></span></p>
+        <p id="emailBody" style="white-space: pre-wrap;"></p>
+        <a class="button" id="sendEmail" href="#">Open in my email app</a>
+    </div>
+
+    <h2>Find us</h2>
+    <p>You can also email us at <a href="mailto:maxcatgr11@gmail.com">maxcatgr11@gmail.com</a> or call us on 078 827 6619.</p>
+    <button id="findMe">Show my location</button>
+    <p id="mapMessage"></p>
+    <div id="map"></div>
+
+    <img src="https://www.bing.com/th/id/OGC.ebe285b8f5e6d6036243a92fdcb8a1e8?r=0&o=7&pid=1.7&rm=3&rurl=https%3a%2f%2fmedia.tenor.com%2fsp8xx-ZO4kcAAAAC%2fgoodbye-farewell.gif&ehk=srvnHeG%2bBJ6afI1reO4IZnPws%2bqdTzG%2fWebI2WJtYzE%3d" alt="Animated farewell message" class="centered-image">
+</main>
+
+<footer>
+    <p><a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="services.html">Services</a> | <a href="enquires.html">Enquiries</a> | <a href="gallery.html">Gallery</a> | <a href="contacts.html">Contact us</a></p>
+    <p>&copy; 2026 CodeMzansi. Email <a href="mailto:maxcatgr11@gmail.com">maxcatgr11@gmail.com</a> or call 078 827 6619.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="jsassets/myfirstscript.js"></script>
 </body>
 </html>
